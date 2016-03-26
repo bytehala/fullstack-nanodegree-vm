@@ -12,24 +12,25 @@ def connect():
 
 
 def deleteMatches():
+    """Remove all the match records from the database."""
     DB = connect()
     cursor = DB.cursor()
     cursor.execute("DELETE FROM matches")
     DB.commit()
     DB.close()
-    """Remove all the match records from the database."""
 
 
 def deletePlayers():
+    """Remove all the player records from the database."""
     DB = connect()
     cursor = DB.cursor()
     cursor.execute("DELETE FROM players")
     DB.commit()
     DB.close()
-    """Remove all the player records from the database."""
 
 
 def countPlayers():
+    """Returns the number of players currently registered."""
     DB = connect()
     cursor = DB.cursor()
     cursor.execute("SELECT count(*) FROM players")
@@ -37,7 +38,6 @@ def countPlayers():
     DB.close()
     
     return row[0][0]
-    """Returns the number of players currently registered."""
 
 
 def registerPlayer(name):
@@ -49,6 +49,11 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
+    DB = connect()
+    cursor = DB.cursor()
+    cursor.execute("INSERT into players (name) values (%s)", (name,))
+    DB.commit()
+    DB.close()
 
 
 def playerStandings():
